@@ -16,6 +16,7 @@ if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
   set (CMAKE_CXX_FLAGS "--std=gnu++11 ${CMAKE_CXX_FLAGS}")
 endif ()
 else ()
+  set (CMAKE_CXX_STANDARD 11)
 endif ()
 
 list(APPEND CMAKE_PREFIX_PATH $ENV{ROOTSYS} ${ROOTSYS})
@@ -32,6 +33,7 @@ EndIf()
 Set(INCLUDE_DIRECTORIES
   ${PROJECT_SOURCE_DIR}/KFParticle
   ${PROJECT_SOURCE_DIR}/KFParticlePerformance
+  ${PROJECT_SOURCE_DIR}/KFParticleTest
 )
 
 include(${ROOT_USE_FILE})
@@ -75,13 +77,24 @@ set (HEADERS
   KFParticleTest/KFParticleTest.h
 )
 
+set (DICTHEADERS
+  KFParticleBase.h
+  KFParticle.h
+  KFVertex.h
+  KFPartEfficiencies.h
+  KFMCParticle.h
+  KFParticleTest.h
+)
+
 if(FIXTARGET)
   ROOT_GENERATE_DICTIONARY(G__KFParticle ${HEADERS} LINKDEF KFLinkDef.h OPTIONS "-DDO_TPCCATRACKER_EFF_PERFORMANCE" "-DNonhomogeneousField" "-DCBM" "-DUSE_TIMERS")
   add_library(KFParticle SHARED ${SOURCES} G__KFParticle.cxx)
   target_link_libraries(KFParticle ${ROOT_LIBRARIES} ${Vc_LIBRARIES} )
   add_target_property(KFParticle COMPILE_FLAGS "-DDO_TPCCATRACKER_EFF_PERFORMANCE -DNonhomogeneousField -DCBM -DUSE_TIMERS")
 else(FIXTARGET)
-  ROOT_GENERATE_DICTIONARY(G__KFParticle ${HEADERS} LINKDEF KFLinkDef.h OPTIONS "-DDO_TPCCATRACKER_EFF_PERFORMANCE" "-DHomogeneousField" "-DUSE_TIMERS")
+  ROOT_GENERATE_DICTIONARY(G__KFParticle 
+    ${DICTHEADERS} OPTIONS
+    "-DDO_TPCCATRACKER_EFF_PERFORMANCE" "-DHomogeneousField" "-DUSE_TIMERS" LINKDEF KFLinkDef.h)
   add_library(KFParticle SHARED ${SOURCES} G__KFParticle.cxx)
   target_link_libraries(KFParticle ${ROOT_LIBRARIES} ${Vc_LIBRARIES} )
   add_target_property(KFParticle COMPILE_FLAGS "-DDO_TPCCATRACKER_EFF_PERFORMANCE -DHomogeneousField -DUSE_TIMERS")

@@ -27,6 +27,7 @@
 #include "TH1.h"
 #include "TH2.h"
 #include "TH3.h"
+#include "TMath.h"
 #include "TProfile.h"
 #include "TProfile2D.h"
 
@@ -764,7 +765,7 @@ void KFParticlePerformanceBase::CreateParameterHistograms(TH1F* histoParameters[
                                   0.f, // chi2/ndf
                                   0.f, // prob
                                  -2.f, // theta
-                                 -2.f, // phi
+                         -TMath::Pi(), // phi
                                 -50.f, // X
                                 -50.f, // Y
                                 -10.f, // Z
@@ -782,7 +783,7 @@ void KFParticlePerformanceBase::CreateParameterHistograms(TH1F* histoParameters[
                                   20.f, // chi2/ndf
                                    1.f, // prob
                                    2.f, // theta
-                                   2.f, // phi
+                           TMath::Pi(), // phi
                                   50.f, // X
                                   50.f, // Y
                                   80.f, // Z

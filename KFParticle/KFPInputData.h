@@ -28,6 +28,9 @@
 #include <vector>
 #include <string>
 #include <fstream>
+#ifdef __APPLE__
+#include <mm_malloc.h>
+#endif
 
 /** @class KFPTrackIndex
  ** @brief Helper structure to sort tracks in the KFPTrackVector object.

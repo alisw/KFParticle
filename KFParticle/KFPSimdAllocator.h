@@ -22,6 +22,9 @@
 #ifndef KFPSimdAllocator_H
 #define KFPSimdAllocator_H
 
+#ifdef __APPLE__
+#include <mm_malloc.h>
+#endif
 #include <Vc/Vc>
 
 /** @class KFPSimdAllocator

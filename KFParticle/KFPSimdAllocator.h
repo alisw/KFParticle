@@ -25,6 +25,11 @@
 #ifdef __APPLE__
 #include <mm_malloc.h>
 #endif
+// for ARM there is no such header --> fall back to C++11 with minimal changes
+#ifdef __aarch64__
+#define _mm_malloc(a,b) aligned_alloc(b,a)
+#define _mm_free free
+#endif
 #include <Vc/Vc>
 
 /** @class KFPSimdAllocator

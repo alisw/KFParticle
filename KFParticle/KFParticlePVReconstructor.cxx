@@ -24,6 +24,7 @@
 #include "KFParticle.h"
 
 using std::vector;
+using std::array;
 
 void KFParticlePVReconstructor::Init(KFPTrackVector *tracks, int nParticles)
 {
@@ -58,7 +59,7 @@ void KFParticlePVReconstructor::Init(KFPTrackVector *tracks, int nParticles)
     tracks->GetTrack(track,iTr);
     fParticles[iTr] = KFParticle( track, 211 );
     fParticles[iTr].AddDaughterId(track.Id());
-    float zeroPoint[3]{0,0,0};
+    float zeroPoint[3]{fTarget[0], fTarget[1], fTarget[2]};
     fParticles[iTr].TransportToPoint(zeroPoint);
     
     for(int iC=0; iC<3; iC++)
@@ -198,7 +199,8 @@ void KFParticlePVReconstructor::FindPrimaryClusters( int cutNDF )
     const float *rBest = fParticles[bestTrack].Parameters();
     const float *covBest = fParticles[bestTrack].CovarianceMatrix();
 
-    float rVertex[3] = {0.f};
+    float rVertex[3] = {fTarget[0], fTarget[1], fTarget[2]};
+
     float covVertex[6] = {0.f};
     float weightVertex = 0.f;
 

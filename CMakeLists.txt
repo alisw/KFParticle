@@ -69,19 +69,25 @@ set (SOURCES
   KFParticleTest/KFParticleTest.cxx
 )
 
-set (HEADERS
+set(HEADERS_KFPARTICLE
   KFParticle/KFParticleBase.h
   KFParticle/KFParticle.h
   KFParticle/KFVertex.h
+)
+
+set(HEADERS_KFPARTICLEPERFORMANCE
   KFParticlePerformance/KFPartEfficiencies.h
   KFParticlePerformance/KFMCParticle.h
+)
+
+set(HEADERS_KFPARTICLETEST
   KFParticleTest/KFParticleTest.h
 )
 
 Message("CMAKE_BUILD_DIRECTORY: ${CMAKE_BUILD_DIRECTORY}")
 
 if(FIXTARGET)
-  ROOT_GENERATE_DICTIONARY(G__KFParticle ${HEADERS} LINKDEF KFLinkDef.h OPTIONS "-DDO_TPCCATRACKER_EFF_PERFORMANCE" "-DNonhomogeneousField" "-DCBM" "-DUSE_TIMERS")
+  ROOT_GENERATE_DICTIONARY(G__KFParticle ${HEADERS_KFPARTICLE} ${HEADERS_KFPARTICLETEST} ${HEADERS_KFPARTICLEPERFORMANCE} LINKDEF KFLinkDef.h OPTIONS "-DDO_TPCCATRACKER_EFF_PERFORMANCE" "-DNonhomogeneousField" "-DCBM" "-DUSE_TIMERS")
 
   find_program(BIN_SED sed)
   if(BIN_SED)
@@ -103,7 +109,7 @@ if(FIXTARGET)
   target_link_libraries(KFParticle ${ROOT_LIBRARIES} ${Vc_LIBRARIES} )
   add_target_property(KFParticle COMPILE_FLAGS "-DDO_TPCCATRACKER_EFF_PERFORMANCE -DNonhomogeneousField -DCBM -DUSE_TIMERS")
 else(FIXTARGET)
-  ROOT_GENERATE_DICTIONARY(G__KFParticle ${HEADERS} LINKDEF KFLinkDef.h OPTIONS "-DDO_TPCCATRACKER_EFF_PERFORMANCE" "-DHomogeneousField" "-DUSE_TIMERS")
+  ROOT_GENERATE_DICTIONARY(G__KFParticle ${HEADERS_KFPARTICLE} ${HEADERS_KFPARTICLETEST} ${HEADERS_KFPARTICLEPERFORMANCE} LINKDEF KFLinkDef.h OPTIONS "-DDO_TPCCATRACKER_EFF_PERFORMANCE" "-DHomogeneousField" "-DUSE_TIMERS")
   add_library(KFParticle SHARED ${SOURCES} G__KFParticle.cxx)
   target_link_libraries(KFParticle ${ROOT_LIBRARIES} ${Vc_LIBRARIES} )
   add_target_property(KFParticle COMPILE_FLAGS "-DDO_TPCCATRACKER_EFF_PERFORMANCE -DHomogeneousField -DUSE_TIMERS")
@@ -113,7 +119,7 @@ if (ROOT_VERSION_MAJOR LESS 6)
     add_custom_target(libKFParticle.rootmap ALL DEPENDS KFParticle COMMAND rlibmap -o libKFParticle.rootmap -l libKFParticle.so -c ${PROJECT_SOURCE_DIR}/KFLinkDef.h)
 endif (ROOT_VERSION_MAJOR LESS 6)
 
-Set(NODICT_HEADERS
+set(NODICT_HEADERS_KFPARTICLE
   KFParticle/KFParticleTopoReconstructor.h
   KFParticle/KFParticlePVReconstructor.h
   KFParticle/KFPVertex.h
@@ -127,7 +133,9 @@ Set(NODICT_HEADERS
   KFParticle/KFPEmcCluster.h
   KFParticle/KFParticleField.h
   KFParticle/KFPTrackVector.h
-  KFParticle/KFParticleDatabase.h
+  KFParticle/KFParticleDatabase.h)
+
+set(NODICT_HEADERS_KFPARTICLEPERFORMANCE
   KFParticlePerformance/KFTopoPerformance.h
   KFParticlePerformance/KFParticlePerformanceBase.h
   KFParticlePerformance/KFMCCounter.h
@@ -137,7 +145,12 @@ Set(NODICT_HEADERS
   KFParticlePerformance/KFPartMatch.h
 )
 
-install(FILES ${HEADERS} ${NODICT_HEADERS} DESTINATION include)
+install(FILES ${HEADERS_KFPARTICLE} ${NODICT_HEADERS_KFPARTICLE}
+        DESTINATION include/KFParticle)
+install(FILES ${HEADERS_KFPARTICLEPERFORMANCE} ${NODICT_HEADERS_KFPARTICLEPERFORMANCE}
+        DESTINATION include/KFParticlePerformance)
+install(FILES ${HEADERS_KFPARTICLETEST}
+        DESTINATION include/KFParticleTest)
 install(FILES ${CMAKE_BINARY_DIR}/${CMAKE_SHARED_LIBRARY_PREFIX}KFParticle_rdict.pcm DESTINATION lib OPTIONAL)
 install(FILES ${CMAKE_BINARY_DIR}/${CMAKE_SHARED_LIBRARY_PREFIX}KFParticle.rootmap DESTINATION lib)
 install(TARGETS KFParticle DESTINATION lib)

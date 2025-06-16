@@ -154,3 +154,23 @@ install(FILES ${HEADERS_KFPARTICLETEST}
 install(FILES ${CMAKE_BINARY_DIR}/${CMAKE_SHARED_LIBRARY_PREFIX}KFParticle_rdict.pcm DESTINATION lib OPTIONAL)
 install(FILES ${CMAKE_BINARY_DIR}/${CMAKE_SHARED_LIBRARY_PREFIX}KFParticle.rootmap DESTINATION lib)
 install(TARGETS KFParticle DESTINATION lib)
+
+include(CMakePackageConfigHelpers)
+
+write_basic_package_version_file(
+    "${CMAKE_CURRENT_BINARY_DIR}/KFParticleConfigVersion.cmake"
+    VERSION 1.0.0
+    COMPATIBILITY SameMajorVersion
+)
+
+configure_package_config_file(
+    "${CMAKE_CURRENT_SOURCE_DIR}/cmake/KFParticleConfig.cmake.in"
+    "${CMAKE_CURRENT_BINARY_DIR}/KFParticleConfig.cmake"
+    INSTALL_DESTINATION lib/cmake/KFParticle
+)
+
+install(FILES
+    "${CMAKE_CURRENT_BINARY_DIR}/KFParticleConfig.cmake"
+    "${CMAKE_CURRENT_BINARY_DIR}/KFParticleConfigVersion.cmake"
+    DESTINATION lib/cmake/KFParticle
+)

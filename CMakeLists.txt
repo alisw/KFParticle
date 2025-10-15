@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8.8 FATAL_ERROR)
+cmake_minimum_required(VERSION 2.8.8...3.26 FATAL_ERROR)
 
 project(KFParticleLibrary)
 
@@ -45,7 +45,7 @@ set(CMAKE_INCLUDE_DIRECTORIES_BEFORE OFF)
 set(LINK_DIRECTORIES
   ${ROOT_LIBRARY_DIR}
 )
- 
+
 link_directories( ${LINK_DIRECTORIES})
 
 set (SOURCES

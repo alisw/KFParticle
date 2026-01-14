@@ -102,7 +102,7 @@ class KFParticleBase :public TObject {
   float GetPz   () const { return fP[5]; } ///< Retruns Z component of the momentum, fP[5].
   float GetE    () const { return fP[6]; } ///< Returns energy of the particle, fP[6].
   float GetS    () const { return fP[7]; } ///< Returns dS=l/p, l - decay length, fP[7], defined if production vertex is set.
-  char  GetQ    () const { return fQ;    } ///< Returns charge of the particle.
+  signed char  GetQ    () const { return fQ;    } ///< Returns charge of the particle.
   float GetChi2 () const { return fChi2; } ///< Returns Chi2 of the fit.
   Int_t GetNDF  () const { return fNDF;  } ///< Returns number of decrease of freedom.
 
@@ -114,7 +114,7 @@ class KFParticleBase :public TObject {
   const float& Pz   () const { return fP[5]; } ///< Retruns Z component of the momentum, fP[5].
   const float& E    () const { return fP[6]; } ///< Returns energy of the particle, fP[6].
   const float& S    () const { return fP[7]; } ///< Returns dS=l/p, l - decay length, fP[7], defined if production vertex is set.
-  const char& Q     () const { return fQ;    } ///< Returns charge of the particle.
+  const signed char& Q     () const { return fQ;    } ///< Returns charge of the particle.
   const float& Chi2 () const { return fChi2; } ///< Returns Chi2 of the fit.
   const Int_t& NDF  () const { return fNDF;  } ///< Returns number of decrease of freedom.
   
@@ -147,7 +147,7 @@ class KFParticleBase :public TObject {
   float & Pz   () { return fP[5]; } ///< Modifier of Z component of the momentum, fP[5].
   float & E    () { return fP[6]; } ///< Modifier of energy of the particle, fP[6].
   float & S    () { return fP[7]; } ///< Modifier of dS=l/p, l - decay length, fP[7], defined if production vertex is set.
-  char  & Q    () { return fQ;    } ///< Modifier of charge of the particle.
+  signed char  & Q    () { return fQ;    } ///< Modifier of charge of the particle.
   float & Chi2 () { return fChi2; } ///< Modifier of Chi2 of the fit.
   Int_t & NDF  () { return fNDF;  } ///< Modifier of number of decrease of freedom.
 
@@ -275,7 +275,7 @@ class KFParticleBase :public TObject {
   Short_t    fIdParentMcVx; ///< for track and McTrack for vertex.
 #endif
   Bool_t fAtProductionVertex; ///< Flag shows if particle is at the production point.
-  char fQ; ///< The charge of the particle in the units of the elementary charge.
+  signed char fQ; ///< The charge of the particle in the units of the elementary charge.
   
   /** \brief Determines the method for the particle construction. \n
    ** 0 - Energy considered as an independent veriable, fitted independently from momentum, without any constraints on mass \n

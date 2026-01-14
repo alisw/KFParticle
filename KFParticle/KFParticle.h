@@ -113,7 +113,7 @@ class KFParticle :public KFParticleBase
   float GetPz   () const ; ///< Retruns Z component of the momentum, fP[5].
   float GetE    () const ; ///< Returns energy of the particle, fP[6].
   float GetS    () const ; ///< Returns dS=l/p, l - decay length, fP[7], defined if production vertex is set.
-  char  GetQ    () const ; ///< Returns charge of the particle.
+  signed char  GetQ    () const ; ///< Returns charge of the particle.
   float GetChi2 () const ; ///< Returns Chi2 of the fit.
   Int_t GetNDF  () const ; ///< Returns number of decrease of freedom.
 
@@ -133,7 +133,7 @@ class KFParticle :public KFParticleBase
   const float& Pz   () const { return fP[5]; } ///< Retruns Z component of the momentum, fP[5].
   const float& E    () const { return fP[6]; } ///< Returns energy of the particle, fP[6].
   const float& S    () const { return fP[7]; } ///< Returns dS=l/p, l - decay length, fP[7], defined if production vertex is set.
-  const char&  Q    () const { return fQ;    } ///< Returns charge of the particle.
+  const signed char&  Q    () const { return fQ;    } ///< Returns charge of the particle.
   const float& Chi2 () const { return fChi2; } ///< Returns Chi2 of the fit.
   const Int_t& NDF  () const { return fNDF;  } ///< Returns number of decrease of freedom.
   
@@ -204,7 +204,7 @@ class KFParticle :public KFParticleBase
   float & Pz   () ; ///< Modifier of Z component of the momentum, fP[5].
   float & E    () ; ///< Modifier of energy of the particle, fP[6].
   float & S    () ; ///< Modifier of dS=l/p, l - decay length, fP[7], defined if production vertex is set.
-  char  & Q    () ; ///< Modifier of charge of the particle.
+  signed char  & Q    () ; ///< Modifier of charge of the particle.
   float & Chi2 () ; ///< Modifier of Chi2 of the fit.
   Int_t & NDF  () ; ///< Modifier of number of decrease of freedom.
 
@@ -430,7 +430,7 @@ inline float KFParticle::GetS    () const
   return KFParticleBase::GetS();    
 }
 
-inline char    KFParticle::GetQ    () const 
+inline signed char    KFParticle::GetQ    () const 
 { 
   return KFParticleBase::GetQ();    
 }
@@ -777,7 +777,7 @@ inline float & KFParticle::S()
   return KFParticleBase::S();    
 }
 
-inline char    & KFParticle::Q() 
+inline signed char    & KFParticle::Q() 
 { 
   return KFParticleBase::Q();    
 }
